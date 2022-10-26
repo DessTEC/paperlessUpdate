@@ -54,12 +54,10 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.basicRequest.formId);
     final formAsync = ref.watch(formStreamProvider(widget.basicRequest));
     return formAsync.when(
       data: (form) => createForm(form, context),
       error: (e, s) {
-        print(e);
         if (widget.notifyErrors != null) widget.notifyErrors!(e, s);
         return const CustomMessageWidget(
           title: "Error",
@@ -75,12 +73,11 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
     /*if (form.hidden || !form.status && false) {
       return const CustomMessageWidget(
         title: "Error",
-        subTitle: "Formulario no disponle.",
+        subTitle: "Formulario no disponible.",
         icon: Icon(Icons.warning),
       );
     }*/
-    print("In form");
-
+    //Ordenar componentes por su posición en el eje y
     form.components.sort(
       (a, b) => (a.layout["y"] as int).compareTo((b.layout["y"] as int)),
     );
@@ -89,17 +86,24 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
     List<String> controlsUsed = [];
 
     for (var item in form.components) {
+      print(item);
       if (controlsUsed.contains(item.id)) continue;
+      //Agregar a una row todos los componentes con el mismo valor de y
+      //que el componente actual
       final horizontal = form.components
           .where((e) => e.layout["y"] == item.layout["y"])
           .toList();
 
+      //Si hay más de un componente en la misma row
       if (horizontal.length > 1) {
+        //Marcar todos los componentes de la row como usados
         controlsUsed.addAll(horizontal.map((e) => e.id));
+        //Ordenar componentes en el eje x
         horizontal.sort(
           (a, b) => (a.layout["x"] as int).compareTo((b.layout["x"] as int)),
         );
 
+        //Operaciones para agregar Expanded y SizedBox entre componentes horizontales
         List<Widget> controlH = [const SizedBox(width: 10)];
         int auxTemp = 0;
         int auxIndex = 0;
@@ -123,6 +127,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
           auxIndex++;
         }
         controlH.add(Expanded(flex: 6 - auxTemp, child: Container()));
+        //Envolver widgets en padding y row y añadir a la lista de campos del form
         controls.add(
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
@@ -132,11 +137,17 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
             ),
           ),
         );
+        //Cuando la row tiene un solo campo
       } else {
+        // Size 6 es lo máximo que puede tener un campo
         int size = 6 - item.layout['w'] as int;
+        //Mover según la posición en x
         int startPosition = item.layout['x'] as int;
         if (startPosition > 0) size -= startPosition;
+        //Marcar el componente como usado
         controlsUsed.add(item.id);
+        //Añadir el campo envuelto en una row con Expanded y SizedBox para empujar
+        //al componente a la posición en x deseada
         controls.add(Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -158,7 +169,11 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
       }
     }
 
+    print(controlsUsed);
+
+    //Si el form tiene campos
     if (controls.isNotEmpty) {
+      //Añadir a la lista de componentes el botón para subirlo
       controls.add(
         Align(
           alignment: Alignment.centerRight,
@@ -201,6 +216,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
       );
     }
 
+    //El form es un expanded con un scroll y todos los componentes adentro
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
@@ -211,8 +227,10 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
     );
   }
 
+  // Checar si hay algún campo requiered que no haya sido contestado
   _validateAndSaveForm(List<ControlItem> components) => !components.any((e) =>
       (e.propierties["required"] ?? false) && e.propierties["answer"] == null);
+
 
   _saveForm(PaperlessForm form) async {
     List<Response> answers = [];

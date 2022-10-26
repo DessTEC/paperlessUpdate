@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class PaperlessForm {
   const PaperlessForm({
     required this.id,
@@ -87,5 +89,14 @@ class ControlItem {
       enabledControl: false,
       id: id,
     );
+  }
+
+  @override
+  String toString() {
+    var result = "\nid: $id";
+    result += "\nproperties: ${jsonEncode(propierties)}";
+    result += "\nlayout: ${jsonEncode(layout)}";
+    result += "\nenable: $enabledControl";
+    return result;
   }
 }
