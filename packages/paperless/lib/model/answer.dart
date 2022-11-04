@@ -24,15 +24,15 @@ class Answer {
   final String status;
 
   toMap() => {
-        'componentes': componentes.map((e) => e.toMap()),
-        'creator': creator,
-        'editado': editado,
-        'email': email,
-        'fechaCreacion': fechaCreacion,
-        'historial': historial,
-        'id': id,
-        'solicitante': solicitante,
-        'status': status,
-        'paperlessPackage': true,
-      };
+    'componentes': componentes.map((e) => e.toMap()),
+    'creator': creator,
+    'editado': editado,
+    'email': email,
+    'fechaCreacion': fechaCreacion,
+    'historial': historial,
+    'id': id,
+    'solicitante': solicitante,
+    'status': status,
+    'paperlessPackage': true,
+  };
 }

@@ -2,10 +2,12 @@ class PaperlessRequest {
   const PaperlessRequest({
     required this.appName,
     required this.formId,
+    required this.companyId,
     required this.requesterInfo,
     required this.saveInPaperless,
   });
 
+  final String companyId;
   final String appName;
   final String formId;
   final RequesterInfo requesterInfo;

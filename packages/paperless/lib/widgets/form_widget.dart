@@ -25,7 +25,7 @@ import 'package:path/path.dart';
 final formStreamProvider = StreamProvider.autoDispose
     .family<PaperlessForm, PaperlessRequest>((ref, baseRequest) {
   final firebase = ref.watch(firebaseProvider(baseRequest.appName));
-  return firebase.getFormById(baseRequest.formId);
+  return firebase.getFormById(baseRequest.formId, baseRequest.companyId);
 });
 
 class FormWidgetPage extends ConsumerStatefulWidget {
@@ -61,7 +61,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
         if (widget.notifyErrors != null) widget.notifyErrors!(e, s);
         return const CustomMessageWidget(
           title: "Error",
-          subTitle: "Error al cargar el formulario, contacte a soporte.",
+          subTitle: "Error al cargar el formulario, contacte a soporte. -- Debugging this text",
           icon: Icon(Icons.error),
         );
       },
@@ -70,13 +70,13 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
   }
 
   createForm(PaperlessForm form, BuildContext context) {
-    /*if (form.hidden || !form.status && false) {
+    if (form.hidden || !form.status && false) {
       return const CustomMessageWidget(
         title: "Error",
         subTitle: "Formulario no disponible.",
         icon: Icon(Icons.warning),
       );
-    }*/
+    }
     //Ordenar componentes por su posición en el eje y
     form.components.sort(
       (a, b) => (a.layout["y"] as int).compareTo((b.layout["y"] as int)),
@@ -574,6 +574,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
                 item.propierties["answer"] as List<dynamic>?,
                 true,
                 widget.basicRequest.formId,
+                widget.basicRequest.companyId,
                 item.id,
               );
               setState(() {});
@@ -686,6 +687,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
                   item.propierties["answer"] as List<dynamic>?,
                   false,
                   widget.basicRequest.formId,
+                  widget.basicRequest.companyId,
                   item.id,
                 );
                 setState(() {});
@@ -887,10 +889,12 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
     List<dynamic>? answer,
     bool isMultiFile,
     String formId,
+      String companyId,
     String controlId,
   ) async {
     final firebase = ref.read(firebaseProvider(widget.basicRequest.appName));
     answerId ??= await firebase.getDocumentId(
+      companyId: companyId,
       formId: formId,
       saveInPaperless: widget.basicRequest.saveInPaperless,
     );

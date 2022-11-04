@@ -1,3 +1,14 @@
+/* ---- @SOFTTEK
+Paperless
+version: 0.0.2
+Non-public test version
+
+Collaborators:
+---@GupThePug
+---@BetoMacias
+
+* */
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -11,7 +22,7 @@ class FirestoreService {
     required String path,
     required T Function(Map<String, dynamic> data, String documentID) builder,
     Query<Map<String, dynamic>> Function(Query<Map<String, dynamic>> query)?
-        queryBuilder,
+    queryBuilder,
     int Function(T lhs, T rhs)? sort,
   }) {
     Query<Map<String, dynamic>> query = FirebaseFirestore.instanceFor(
@@ -39,22 +50,23 @@ class FirestoreService {
         .doc(idDoc)
         .snapshots()
         .map((snapshot) => builder(
-              snapshot.data() as Map<String, dynamic>,
-              snapshot.id,
-            ));
+      snapshot.data() as Map<String, dynamic>,
+      snapshot.id,
+    ));
   }
 
   Future<String> getDocumentId({
     required String formId,
+    required String companyId,
     required bool saveInPaperless,
   }) async {
     FirebaseFirestore instance = saveInPaperless
         ? FirebaseFirestore.instanceFor(app: Firebase.app(appName))
         : FirebaseFirestore.instance;
 
-    final formCollection =
-        instance.collection('Formularios').doc(formId).collection("Respuestas");
-    return formCollection.doc().id;
+    final formCollection = instance.collection('Empresas').doc(companyId).collection("Formularios");
+    final respuestasCollection = formCollection.doc(formId).collection("Respuestas");
+    return respuestasCollection.doc().id;
   }
 
   Future<void> createData<T>({
@@ -69,6 +81,7 @@ class FirestoreService {
         : FirebaseFirestore.instance;
 
     docId ??= instance.collection(path).doc().id;
+    print(docId);
     return instance.collection(path).doc(docId).set(builder(data));
   }
 }

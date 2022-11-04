@@ -1,3 +1,13 @@
+/* ---- @SOFTTEK
+Paperless
+version: 0.0.2
+Non-public test version
+
+Collaborators:
+---@GupThePug
+---@BetoMacias
+
+* */
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,7 +18,7 @@ import 'package:paperless/services/firestorage_service.dart';
 import 'package:paperless/services/firestore_service.dart';
 
 final firebaseProvider =
-    Provider.family<FirebaseService, String>((ref, appName) {
+Provider.family<FirebaseService, String>((ref, appName) {
   return FirebaseService(appName: appName);
 });
 
@@ -21,20 +31,21 @@ class FirebaseService {
   final _firestoreService = FirestoreService.instance;
   final _storageService = StorageService.instance;
 
-  Stream<PaperlessForm> getFormById(String formId) =>
+  //Updated this form path to get the right forms by company ID
+  Stream<PaperlessForm> getFormById(String formId, String companyId) =>
       _firestoreService.documentStream(
-        path: '/Formularios',
+        path: '/Empresas/$companyId/Formularios/',
         idDoc: formId,
         builder: (data, _) => PaperlessForm.fromMap(data),
       );
 
   UploadTask uploadFile(
-    String path,
-    Uint8List? file,
-    String? filePath,
-    SettableMetadata metadata,
-    bool saveInPaperless,
-  ) =>
+      String path,
+      Uint8List? file,
+      String? filePath,
+      SettableMetadata metadata,
+      bool saveInPaperless,
+      ) =>
       _storageService.uploadFile(
         path: path,
         metadata: metadata,
@@ -54,10 +65,12 @@ class FirebaseService {
 
   Future<String> getDocumentId({
     required String formId,
+    required String companyId,
     required bool saveInPaperless,
   }) =>
       _firestoreService.getDocumentId(
         formId: formId,
+        companyId: companyId,
         saveInPaperless: saveInPaperless,
       );
 
@@ -74,3 +87,9 @@ class FirebaseService {
         saveInPaperless: saveInPaperless,
       );
 }
+
+/* ---- DEVELOPER COMMENTS
+* @GupThePug: this file is responsible for querying and getting
+* docs. It has been updated to work with a new version of the
+* paperless database
+* */

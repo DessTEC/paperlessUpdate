@@ -34,44 +34,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD-_eJA7isoNVWQ-KKBRAD8LmFDFp5r9H0',
-    appId: '1:178058752050:web:7d2d605192741936c54c2b',
-    messagingSenderId: '178058752050',
-    projectId: 'testpwa-4631f',
-    authDomain: 'testpwa-4631f.firebaseapp.com',
-    databaseURL: 'https://testpwa-4631f-default-rtdb.firebaseio.com',
-    storageBucket: 'testpwa-4631f.appspot.com',
-    measurementId: 'G-C4WPZWJZYG',
+    apiKey: 'AIzaSyB4mdf7f__aHGVJVg_00nMftnLJDwhSNcY',
+    appId: '1:221735996752:web:5fa33e83ec2fe167b23055',
+    messagingSenderId: '221735996752',
+    projectId: 'paperless-v2-aa89b',
+    authDomain: 'paperless-v2-aa89b.firebaseapp.com',
+    storageBucket: 'paperless-v2-aa89b.appspot.com',
+    measurementId: 'G-7B7RKW0G31',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB3yKcq9wJUMeL4Nh3n2NcciKQjcwg0Cqw',
-    appId: '1:178058752050:android:cc4e9cde0afedcf9c54c2b',
-    messagingSenderId: '178058752050',
-    projectId: 'testpwa-4631f',
-    databaseURL: 'https://testpwa-4631f-default-rtdb.firebaseio.com',
-    storageBucket: 'testpwa-4631f.appspot.com',
+    apiKey: 'AIzaSyAR49vp4ob01ypGKPtFAPPb5cnqBkW8TG4',
+    appId: '1:221735996752:android:65c8cf6913de2338b23055',
+    messagingSenderId: '221735996752',
+    projectId: 'paperless-v2-aa89b',
+    storageBucket: 'paperless-v2-aa89b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC9uoPzjOzbttav01l9Z7hsBMScARnzJ34',
-    appId: '1:178058752050:ios:91bafec44f09361bc54c2b',
-    messagingSenderId: '178058752050',
-    projectId: 'testpwa-4631f',
-    databaseURL: 'https://testpwa-4631f-default-rtdb.firebaseio.com',
-    storageBucket: 'testpwa-4631f.appspot.com',
-    iosClientId: '178058752050-ckjbdh1efacfqrjffa45s4q8ahelke8i.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA2Hpg3F_wvW-VturxIZocJkp8kmoeic7I',
+    appId: '1:221735996752:ios:15d10f40d924b71fb23055',
+    messagingSenderId: '221735996752',
+    projectId: 'paperless-v2-aa89b',
+    storageBucket: 'paperless-v2-aa89b.appspot.com',
+    iosClientId: '221735996752-ogteriachmdr77f1df28jph9orcng1u9.apps.googleusercontent.com',
     iosBundleId: 'com.example.testApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC9uoPzjOzbttav01l9Z7hsBMScARnzJ34',
-    appId: '1:178058752050:ios:91bafec44f09361bc54c2b',
-    messagingSenderId: '178058752050',
-    projectId: 'testpwa-4631f',
-    databaseURL: 'https://testpwa-4631f-default-rtdb.firebaseio.com',
-    storageBucket: 'testpwa-4631f.appspot.com',
-    iosClientId: '178058752050-ckjbdh1efacfqrjffa45s4q8ahelke8i.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA2Hpg3F_wvW-VturxIZocJkp8kmoeic7I',
+    appId: '1:221735996752:ios:15d10f40d924b71fb23055',
+    messagingSenderId: '221735996752',
+    projectId: 'paperless-v2-aa89b',
+    storageBucket: 'paperless-v2-aa89b.appspot.com',
+    iosClientId: '221735996752-ogteriachmdr77f1df28jph9orcng1u9.apps.googleusercontent.com',
     iosBundleId: 'com.example.testApp',
   );
 }

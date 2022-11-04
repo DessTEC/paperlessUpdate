@@ -1,12 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:paperless/model/firebase_config.dart';
 import 'package:paperless/model/paperles_request.dart';
 import 'package:paperless/paperless.dart';
 import 'package:test_app/firebase_options.dart';
-import 'package:test_app/firebase_paperless_options.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Paperless',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Paperless'),
     );
   }
 }
@@ -44,63 +45,35 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    /*FlutterPaperless.initializeApp(
-      password: "Pa\$\$Wordslb93",
-      userName: 'betomaciasm.macias@gmail.com',
-      appName: 'Paperles',
-      options: PapelessFirebaseOptions.currentPlatform,
-    );*/
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text("All forms")),
       body: Column(
         children: [
           FlutterPaperless(
             paperlessConfig: PaperlessConfig(
               appName:
-                  'Paperless', // firebase.getInstance('appname')  para hacer consultas a paperless
-              options: PapelessFirebaseOptions.currentPlatform,
+              'paperlessdemo', // firebase.getInstance('appname')  para hacer consultas a paperless
+              options: DefaultFirebaseOptions.currentPlatform,
               password:
-                  "Pa\$\$Wordslb93", // credenciales del proyecto de paperless y se guarda en la estructura original(es para identificar que aplicaion fue pero no al usuario)
-              userName: 'betomaciasm.macias@gmail.com',
+              "meow1234", // credenciales del proyecto de paperless y se guarda en la estructura original(es para identificar que aplicaion fue pero no al usuario)
+              userName: 'eber25aglera@gmail.com',
             ),
-            formId: "5uRP09rRimF2wZNwbz6T", // ID del formulario
+            formId: "3JKoZbXEY6h9GFDU624s", // ID del formulario
+            companyId: "eO9cxq1ySZXkfUMSr7or",
             requesterInfo: const RequesterInfo(
               userId:
-                  '1234567890', //son los datos de quien esta haciendo la solicitud. se guarda en el nodo paperlessPackage(identifica al usuario como tal)
+              '1234567890', //son los datos de quien esta haciendo la solicitud. se guarda en el nodo paperlessPackage(identifica al usuario como tal)
               userName: 'Roberto Macías Montoya',
               userMail: 'roberto.macias@gmail.com',
             ),
             saveInPaperless:
-                false, //si esta false lo guarda en el proyecto default y si esta en true se guarda en paperless
+            false, //si esta false lo guarda en el proyecto default y si esta en true se guarda en paperless
             submitted: () =>
-                {}, // callback cuando se guardo correctamente (existe notify errors para errores, por ejemplo cuando )
+            {}, // callback cuando se guardo correctamente (existe notify errors para errores, por ejemplo cuando )
             loadingWidget: const Center(
               child: Text("Cargando"),
             ),
           ),
-          /*FlutterPaperless(
-            paperlessConfig: PaperlessConfig(
-              appName: 'Paperless',
-              options: PapelessFirebaseOptions.currentPlatform,
-              password: "Pa\$\$Wordslb93",
-              userName: 'betomaciasm.macias@gmail.com',
-            ),
-            formId: "0H9qEjTySrIOl25PnK2j",
-            requesterInfo: const RequesterInfo(
-              userId: '1234567890',
-              userName: 'Roberto Macías Montoya',
-              userMail: 'roberto.macias@gmail.com',
-            ),
-            saveInPaperless: false,
-            submitted: () => {},
-            notifyErrors: (d, w) {
-              final asd = 0;
-              final sddd = asd;
-            },
-            loadingWidget: const Center(
-              child: Text("Cargando"),
-            ),
-          ),*/
           // todo
           // que se muestre todos los controles en una sola pantalla o individual
           // separar los usuarios al guardar en firebase para que conincidan los ids
