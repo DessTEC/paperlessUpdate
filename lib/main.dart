@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       title: 'Paperless',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Paperless'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("All forms")),
+      appBar: AppBar(title: Text("Test form")),
       body: Column(
         children: [
           FlutterPaperless(
@@ -55,10 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
               'paperlessdemo', // firebase.getInstance('appname')  para hacer consultas a paperless
               options: DefaultFirebaseOptions.currentPlatform,
               password:
-              "meow1234", // credenciales del proyecto de paperless y se guarda en la estructura original(es para identificar que aplicaion fue pero no al usuario)
-              userName: 'eber25aglera@gmail.com',
+              "Paper2022", // credenciales del proyecto de paperless y se guarda en la estructura original(es para identificar que aplicaion fue pero no al usuario)
+              userName: 'alan.ibarzabal@softtek.com',
             ),
-            formId: "3JKoZbXEY6h9GFDU624s", // ID del formulario
+            formId: "HJZYG8oQNxx3CfzBSwJH", // ID del formulario
             companyId: "eO9cxq1ySZXkfUMSr7or",
             requesterInfo: const RequesterInfo(
               userId:

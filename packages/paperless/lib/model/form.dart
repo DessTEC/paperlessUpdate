@@ -50,7 +50,7 @@ class PaperlessForm {
     final language = data['idioma'];
     List<ControlItem> components = [];
 
-    (data['componentes'] as Map<String, dynamic>).forEach((key, value) {
+    (data['Componentes'] as Map<String, dynamic>).forEach((key, value) {
       components.add(ControlItem.fromMap(value));
     });
 

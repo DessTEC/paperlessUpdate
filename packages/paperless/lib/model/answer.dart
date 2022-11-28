@@ -24,7 +24,7 @@ class Answer {
   final String status;
 
   toMap() => {
-    'componentes': componentes.map((e) => e.toMap()),
+    'Componentes': componentes.map((e) => e.toMap()),
     'creator': creator,
     'editado': editado,
     'email': email,

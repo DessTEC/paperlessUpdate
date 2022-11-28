@@ -86,7 +86,6 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
     List<String> controlsUsed = [];
 
     for (var item in form.components) {
-      print(item);
       if (controlsUsed.contains(item.id)) continue;
       //Agregar a una row todos los componentes con el mismo valor de y
       //que el componente actual
@@ -104,7 +103,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
         );
 
         //Operaciones para agregar Expanded y SizedBox entre componentes horizontales
-        List<Widget> controlH = [const SizedBox(width: 10)];
+        List<Widget> controlH = [const SizedBox(width: 10), Container(width: 10, decoration: BoxDecoration(color: Colors.blue))];
         int auxTemp = 0;
         int auxIndex = 0;
         for (var element in horizontal) {
@@ -169,8 +168,6 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
       }
     }
 
-    print(controlsUsed);
-
     //Si el form tiene campos
     if (controls.isNotEmpty) {
       //Añadir a la lista de componentes el botón para subirlo
@@ -219,6 +216,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
     //El form es un expanded con un scroll y todos los componentes adentro
     return Expanded(
       child: SingleChildScrollView(
+        padding: EdgeInsets.only(right: 15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: controls,
@@ -322,8 +320,9 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
               ? [FilteringTextInputFormatter.digitsOnly]
               : null,
           decoration: InputDecoration(
+            fillColor: Colors.purple,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(10),
             ),
             hintText: language?['placeholder'] ?? '',
           ),
@@ -550,7 +549,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
           ),
         );
         break;
-      case 'ratbe':
+      case 'rate':
         control = RatingBar.builder(
           initialRating: item.propierties["answer"] ?? 0,
           minRating: 1,
@@ -565,7 +564,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
           onRatingUpdate: (rating) => item.propierties["answer"] = rating,
         );
         break;
-      case 'upload':
+      case 'upComponent':
         List<Widget> list = [
           OutlinedButton(
             onPressed: () async {
@@ -829,7 +828,7 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
           children: list,
         );
         break;
-      case 'textarea1':
+      case 'textarea':
         final HtmlEditorController controller = HtmlEditorController();
         control = Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
@@ -842,6 +841,11 @@ class _FormWidgetPageState extends ConsumerState<FormWidgetPage> {
           ),
         );
         break;
+
+      case 'multipleselect':
+        print("wowza");
+        break;
+
       // todo hacer el multi-Select
       /* if (item.propierties['mode'] == 'default') {
           return DropdownButton(
